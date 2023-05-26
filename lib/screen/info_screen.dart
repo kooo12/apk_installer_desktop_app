@@ -38,7 +38,12 @@ class Info extends StatelessWidget {
               ),
               Card(child: Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Container(child: Text('Feedback to me if you found some bugs and errors.In Xiaomi Devices this app does not work.Enjoy!',style: TextStyle(height: 2,),),width: 300,),
+                child: Container(
+                  child: Column(children: [
+                    Text('Information :'),
+                    SizedBox(height: 20,),
+                    Text('Feedback to me if you found some bugs and errors. In Xiaomi Devices, this app does not work. Enjoy!')
+                  ],))
               ))
             ],
           ),
