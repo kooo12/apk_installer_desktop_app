@@ -6,6 +6,8 @@ import 'package:install_apk/screen/info_screen.dart';
 import 'package:install_apk/widget/drawer.dart';
 
 class InstallAPKScreen extends StatefulWidget {
+  const InstallAPKScreen({super.key});
+
   @override
   _InstallAPKScreenState createState() => _InstallAPKScreenState();
 }
@@ -20,35 +22,35 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
     return Scaffold(
       drawer: drawerView(),
       appBar: AppBar(
-        title: Text('Install APK'),
-        titleTextStyle: TextStyle(letterSpacing: 6),
+        title: const Text('Installation'),
+        titleTextStyle: const TextStyle(letterSpacing: 6),
         actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> Info()));
-        }, icon: Icon(Icons.info))],
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> const Info()));
+        }, icon: const Icon(Icons.info))],
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton.icon(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (cont) => ConnectedDevicesScreen()));
-            }, icon: Icon(Icons.phone_android), label: Text('Choose Devices')),
+              Navigator.push(context, MaterialPageRoute(builder: (cont) =>  ConnectedDevicesScreen()));
+            }, icon: const Icon(Icons.phone_android), label: const Text('Conected Devices')),
           ),
-          SizedBox(height: 5,),
+          const SizedBox(height: 5,),
           ElevatedButton(
               onPressed: () {
                 selectAPKFiles();
               },
-              child: Text('Select APK Files'),
+              child: const Text('Select APK Files'),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
               installAPKsToDevice();
             },
-            child: Text('Install APKs'),
+            child: const Text('Install APKs'),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Container(
             child: Column(
               children: [
@@ -60,8 +62,8 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
                       value: installationProgress,),
                 ),
                     
-                if(installationComplete)Card(child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                if(installationComplete)const Card(child: Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text('Done', style: TextStyle(fontWeight: FontWeight.bold),),
                 ))
                 
@@ -79,7 +81,7 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
                   child: ListTile(
                     title: Text(apkPaths[index]),
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       onPressed: () {
                         removeAPK(index);
                       },
@@ -125,13 +127,13 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('ADB Not Found'),
+          title: const Text('ADB Not Found'),
           content:
-              Text('ADB is not installed or not added to the system PATH.'),
+              const Text('ADB is not installed or not added to the system PATH.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -143,12 +145,12 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('No APKs Selected'),
-          content: Text('Please select APK files to install.'),
+          title: const Text('No APKs Selected'),
+          content: const Text('Please select APK files to install.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -172,12 +174,12 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Installation Failed'),
+            title: const Text('Installation Failed'),
             content: Text('Failed to install APK: ${result.stderr}'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           ),

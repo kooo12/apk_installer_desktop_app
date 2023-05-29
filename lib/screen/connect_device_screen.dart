@@ -1,5 +1,7 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:usb_serial/usb_serial.dart';
 
 class ConnectedDevicesScreen extends StatefulWidget {
   @override
@@ -7,19 +9,54 @@ class ConnectedDevicesScreen extends StatefulWidget {
 }
 
 class _ConnectedDevicesScreenState extends State<ConnectedDevicesScreen> {
-  List<UsbDevice> connectedDevices = [];
+  List<String> connectedDevices = [];
+
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    getConnectedDevices();
+    startDevicePolling();
   }
 
-  Future<void> getConnectedDevices() async {
-    List<UsbDevice> devices = await UsbSerial.listDevices();
-    setState(() {
-      connectedDevices = devices;
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void startDevicePolling() {
+    // Start a timer to periodically check for connected devices
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+      updateConnectedDevices();
     });
+  }
+
+  Future<void> updateConnectedDevices() async {
+    try {
+      List<String> devices = await getConnectedDevices();
+      setState(() {
+        connectedDevices = devices;
+      });
+    } catch (error) {
+      print('Failed to get connected devices: $error');
+    }
+  }
+
+  Future<List<String>> getConnectedDevices() async {
+    ProcessResult result = await Process.run('adb', ['devices','-l']);
+    if (result.exitCode == 0) {
+      String output = result.stdout;
+      List<String> lines = LineSplitter.split(output).toList();
+      lines.removeAt(0);
+      lines.removeWhere((line) => line.trim().isEmpty);
+      List<String> devices = lines.map((line) {
+        return line.split('\t').first;
+      }).toList();
+      return devices;
+    } else {
+      throw Exception('Failed to get connected devices');
+    }
   }
 
   @override
@@ -31,13 +68,9 @@ class _ConnectedDevicesScreenState extends State<ConnectedDevicesScreen> {
       body: ListView.builder(
         itemCount: connectedDevices.length,
         itemBuilder: (context, index) {
-          UsbDevice device = connectedDevices[index];
           return ListTile(
-            title: Text(device.productName ?? 'Unknown Device'),
-            subtitle: Text(device.manufacturerName ?? 'Unknown Manufacturer'),
-            onTap: () {
-              // Handle device selection
-            },
+            title: Text(connectedDevices[index]),
+            
           );
         },
       ),
