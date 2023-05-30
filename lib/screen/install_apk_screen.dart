@@ -5,6 +5,7 @@ import 'package:install_apk/screen/connect_device_screen.dart';
 import 'package:install_apk/screen/info_screen.dart';
 import 'package:install_apk/widget/drawer.dart';
 
+
 class InstallAPKScreen extends StatefulWidget {
   const InstallAPKScreen({super.key});
 
@@ -24,26 +25,45 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
       appBar: AppBar(
         title: const Text('Installation'),
         titleTextStyle: const TextStyle(letterSpacing: 6),
-        actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> const Info()));
-        }, icon: const Icon(Icons.info))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Info()));
+              },
+              icon: const Icon(Icons.info))
+        ],
       ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton.icon(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (cont) =>  ConnectedDevicesScreen()));
-            }, icon: const Icon(Icons.phone_android), label: const Text('Conected Devices')),
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (cont) => ConnectedDevicesScreen()));
+                      },
+                      icon: const Icon(Icons.phone_android),
+                      label: const Text('Conected Devices')),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      selectAPKFiles();
+                    },
+                    child: const Text('Select APK Files'),
+                  ),
+                ],
+              ),
+            ),
           ),
-          const SizedBox(height: 5,),
-          ElevatedButton(
-              onPressed: () {
-                selectAPKFiles();
-              },
-              child: const Text('Select APK Files'),
-          ),
-          const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
               installAPKsToDevice();
@@ -54,25 +74,27 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
           Container(
             child: Column(
               children: [
-                if(installing)Padding(
-                  padding: const EdgeInsets.fromLTRB(50, 0, 20, 50),
-                  child: LinearProgressIndicator(
+                if (installing)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(50, 0, 20, 50),
+                    child: LinearProgressIndicator(
                       backgroundColor: Colors.blue,
                       minHeight: 5,
-                      value: installationProgress,),
-                ),
-                    
-                if(installationComplete)const Card(child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Done', style: TextStyle(fontWeight: FontWeight.bold),),
-                ))
-                
+                      value: installationProgress,
+                    ),
+                  ),
+                if (installationComplete)
+                  const Card(
+                      child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Done',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ))
               ],
-              
             ),
-                      ),
-            
-
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: apkPaths.length,
@@ -118,18 +140,17 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
   }
 
   void installAPKsToDevice() async {
-
     bool adbExists = await Process.run('adb', ['version'])
         .then((result) => result.exitCode == 0)
         .catchError((error) => false);
-    
+
     if (!adbExists) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('ADB Not Found'),
-          content:
-              const Text('ADB is not installed or not added to the system PATH.'),
+          content: const Text(
+              'ADB is not installed or not added to the system PATH.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -162,13 +183,12 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
     installing = true;
     installationComplete = false;
     setState(() {});
-    
+
     for (String apkPath in apkPaths) {
       ProcessResult result =
           await Process.run('adb', ['install', '-r', apkPath]);
       if (result.exitCode == 0) {
         installedApks++;
-        
       } else {
         installedApks++;
         showDialog(
@@ -185,11 +205,10 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
           ),
         );
       }
-      double progress =installedApks / totalApks;
+      double progress = installedApks / totalApks;
       setState(() {
         installationProgress = progress;
       });
-      
     }
     installing = false;
     installationComplete = true;

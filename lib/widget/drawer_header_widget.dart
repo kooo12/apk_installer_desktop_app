@@ -11,7 +11,7 @@ class _DrawerHeaderWidgetState extends State<DrawerHeaderWidget> {
   late Timer timer;
   late StreamController<String> textStreamController;
   late Stream<String> textStream;
-  String displayedTime = 'Welcome'; // Default initial value
+  String displayedTime = 'Welcome to Installer'; // Default initial value
 
 
   @override
@@ -23,7 +23,7 @@ class _DrawerHeaderWidgetState extends State<DrawerHeaderWidget> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+    timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
       DateTime now = DateTime.now();
       String greeting = getGreeting(now.hour);
       String formattedTime = '$greeting ${now.hour}:${now.minute}';
