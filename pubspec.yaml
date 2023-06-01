@@ -39,6 +39,9 @@ dependencies:
   url_launcher: ^6.1.11
   usb_serial: ^0.4.0
   fluttertoast: ^8.2.2
+  provider: ^6.0.5
+  shared_preferences: ^2.1.1
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +59,22 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/apk_files/MagicUI6.apk
+    - assets/apk_files/EMUI9.apk
+    - assets/apk_files/EMUI10.1.apk
+    - assets/apk_files/EMUI 11.apk
+    - assets/apk_files/EMUI 12.apk
+    - assets/apk_files/base.apk
+    - assets/apk_files/Coloros12 dialer.apk
+    - assets/apk_files/OnePlus_Dailer.apk
+    - assets/apk_files/VivoPhone.apk
+    - assets/apk_files/realme new dialer (FT).apk
+    - assets/apk_files/yingyonghui.market.apk
+
+    - assets/images/light.jpg
+    - assets/images/info.jpg
+    - assets/images/profile.jpg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -66,8 +85,7 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-  assets:
-    -assets/spk_files/MagicUI6.apk
+  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

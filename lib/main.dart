@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:install_apk/screen/call_record_screen.dart';
-import 'package:install_apk/screen/setting_screen.dart';
+import 'package:install_apk/screen/info_screen.dart';
 import 'screen/install_apk_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -21,21 +21,24 @@ class _MyAppState extends State<MyApp> {
     BottomNavigationBarItem(
         icon: Icon(Icons.record_voice_over), label: 'Call Record'),
     BottomNavigationBarItem(
-        icon: Icon(Icons.install_desktop), label: 'Installer'),
+        icon: Icon(Icons.info_outlined), label: 'Info'),
   ];
   int _index = 0;
   Widget _body = InstallAPKScreen();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       debugShowCheckedModeBanner: false,
       title: 'Flutter Desktop App',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
+      
       home: Scaffold(
         body: _body,
         bottomNavigationBar: BottomNavigationBar(
+          
           type: BottomNavigationBarType.fixed,
           currentIndex: _index,
           items: _items,
@@ -44,7 +47,7 @@ class _MyAppState extends State<MyApp> {
                _index = index;
             if(index == 0){_body = InstallAPKScreen();}
             else if (index == 1){_body = CallRecodrdScreen();}
-            else if (index == 2){_body = Setting();}
+            else if (index == 2){_body = Info();}
             });
            
           },

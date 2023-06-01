@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:install_apk/screen/connect_device_screen.dart';
-import 'package:install_apk/screen/info_screen.dart';
 import 'package:install_apk/widget/drawer.dart';
 
 
@@ -21,99 +20,98 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawerView(),
+      drawer: drawerView(context),
       appBar: AppBar(
         title: const Text('Installation'),
         titleTextStyle: const TextStyle(letterSpacing: 6),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Info()));
-              },
-              icon: const Icon(Icons.info))
-        ],
+        
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ElevatedButton.icon(
+      body: Container(
+        decoration: const BoxDecoration(
+        image: DecorationImage(image: AssetImage('assets/images/light.jpg'),fit: BoxFit.cover),
+        
+      ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (cont) => ConnectedDevicesScreen()));
+                        },
+                        icon: const Icon(Icons.phone_android),
+                        label: const Text('Conected Devices')),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (cont) => ConnectedDevicesScreen()));
+                        selectAPKFiles();
                       },
-                      icon: const Icon(Icons.phone_android),
-                      label: const Text('Conected Devices')),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      selectAPKFiles();
-                    },
-                    child: const Text('Select APK Files'),
-                  ),
+                      child: const Text('Select APK Files'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                installAPKsToDevice();
+              },
+              child: const Text('Install APKs'),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              child: Column(
+                children: [
+                  if (installing)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(50, 0, 20, 50),
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.blue,
+                        minHeight: 5,
+                        value: installationProgress,
+                      ),
+                    ),
+                  if (installationComplete)
+                    const Card(
+                        child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Done',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ))
                 ],
               ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              installAPKsToDevice();
-            },
-            child: const Text('Install APKs'),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            child: Column(
-              children: [
-                if (installing)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(50, 0, 20, 50),
-                    child: LinearProgressIndicator(
-                      backgroundColor: Colors.blue,
-                      minHeight: 5,
-                      value: installationProgress,
+            Expanded(
+              child: ListView.builder(
+                itemCount: apkPaths.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      title: Text(apkPaths[index]),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          removeAPK(index);
+                        },
+                      ),
                     ),
-                  ),
-                if (installationComplete)
-                  const Card(
-                      child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Done',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ))
-              ],
+                  );
+                },
+              ),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: apkPaths.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    title: Text(apkPaths[index]),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        removeAPK(index);
-                      },
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

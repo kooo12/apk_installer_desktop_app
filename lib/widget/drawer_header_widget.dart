@@ -34,12 +34,16 @@ class _DrawerHeaderWidgetState extends State<DrawerHeaderWidget> {
   }
 
   String getGreeting(int hour) {
-    if (hour >= 0 && hour < 12) {
+    if (hour >= 0 && hour < 11) {
       return 'Good Morning';
       
-    } else if (hour >= 12 && hour < 18) {
+    } else if (hour >= 11 && hour < 16) {
       return 'Good Afternoon';
-    } else {
+    }
+    else if (hour >= 16 && hour < 20) {
+      return 'Good Afternoon';
+    }
+     else {
       return 'Good Night';
     }
   }
@@ -53,15 +57,24 @@ class _DrawerHeaderWidgetState extends State<DrawerHeaderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return DrawerHeader(
-      decoration: BoxDecoration(
-        color: Color.fromARGB(174, 151, 86, 226),
-      ),
-      child: Text(
-        displayedTime,
-        style: TextStyle(fontSize: 24, color: Colors.white),
-      ),
-    );
+    return Container(
+      height: 230,
+      child: DrawerHeader(
+        decoration: BoxDecoration(
+          color: Color.fromARGB(174, 151, 86, 226),
+        ),
+        child: Column(
+            children: [
+              Text(
+                displayedTime,
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              SizedBox(height: 15,),
+              ListTile(title : Text('Note :',style: TextStyle(fontWeight: FontWeight.bold),), subtitle: Text('If you want to install apks on Xiaomi devices, you need to sign in Mi Account and turn on install via USB in developer options.And then when the pop up appear, click install for each apk.',style: TextStyle(fontWeight: FontWeight.w700),),)
+            ],
+          ),
+        ),
+      );
   }
 }
 
