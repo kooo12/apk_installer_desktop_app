@@ -13,13 +13,13 @@ class _CallRecodrdScreenState extends State<CallRecodrdScreen> {
   String apkPathHonor = 'assets/apk_files/MagicUI6.apk';
   String apkPathEmui9 = 'assets/apk_files/EMUI9.apk';
   String apkPathEmui10 = 'assets/apk_files/EMUI10.1.apk';
-  String apkPathEmui11 = 'assets/apk_files/EMUI 11.apk';
-  String apkPathEmui12 = 'assets/apk_files/EMUI 12.apk';
+  String apkPathEmui11 = 'assets/apk_files/EMUI11.apk';
+  String apkPathEmui12 = 'assets/apk_files/EMUI12.apk';
   String apkPathOppo11 = 'assets/apk_files/base.apk';
-  String apkPathOppo12 = 'assets/apk_files/Coloros12 dialer.apk';
+  String apkPathOppo12 = 'assets/apk_files/Coloros12dialer.apk';
   String apkPathOppoSecond12 = 'assets/apk_files/OnePlus_Dailer.apk';
-  String apkPathRealme = 'assets/apk_files/OnePlus_Dailer.apk';
-  String apkPathVivo = 'assets/apk_files/OnePlus_Dailer.apk';
+  String apkPathRealme = 'assets/apk_files/realmenewdialer.apk';
+  String apkPathVivo = 'assets/apk_files/VivoPhone.apk';
 
   @override
   Widget build(BuildContext context) {

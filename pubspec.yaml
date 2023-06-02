@@ -64,13 +64,13 @@ flutter:
     - assets/apk_files/MagicUI6.apk
     - assets/apk_files/EMUI9.apk
     - assets/apk_files/EMUI10.1.apk
-    - assets/apk_files/EMUI 11.apk
-    - assets/apk_files/EMUI 12.apk
+    - assets/apk_files/EMUI11.apk
+    - assets/apk_files/EMUI12.apk
     - assets/apk_files/base.apk
-    - assets/apk_files/Coloros12 dialer.apk
+    - assets/apk_files/Coloros12dialer.apk
     - assets/apk_files/OnePlus_Dailer.apk
     - assets/apk_files/VivoPhone.apk
-    - assets/apk_files/realme new dialer (FT).apk
+    - assets/apk_files/realmenewdialer.apk
     - assets/apk_files/yingyonghui.market.apk
 
     - assets/images/light.jpg
