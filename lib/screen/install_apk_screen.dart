@@ -47,7 +47,9 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
                                   builder: (cont) => ConnectedDevicesScreen()));
                         },
                         icon: const Icon(Icons.phone_android),
-                        label: const Text('Conected Devices')),
+                        label: const Text('Conected Devices'),
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black)),
+                        ),
                     SizedBox(
                       width: 20,
                     ),
@@ -56,6 +58,7 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
                         selectAPKFiles();
                       },
                       child: const Text('Select APK Files'),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black)),
                     ),
                   ],
                 ),
@@ -66,6 +69,7 @@ class _InstallAPKScreenState extends State<InstallAPKScreen> {
                 installAPKsToDevice();
               },
               child: const Text('Install APKs'),
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blueGrey)),
             ),
             const SizedBox(height: 10),
             Container(

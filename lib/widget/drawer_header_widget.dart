@@ -61,16 +61,19 @@ class _DrawerHeaderWidgetState extends State<DrawerHeaderWidget> {
       height: 230,
       child: DrawerHeader(
         decoration: BoxDecoration(
-          color: Color.fromARGB(174, 151, 86, 226),
+          
+         image: DecorationImage(
+          
+              image: AssetImage('assets/images/afternoon.jpg'), fit: BoxFit.cover),
         ),
         child: Column(
             children: [
               Text(
                 displayedTime,
-                style: TextStyle(fontSize: 24, color: Colors.white),
+                style: TextStyle(fontSize: 24, color: Color.fromARGB(255, 0, 0, 0)),
               ),
               SizedBox(height: 15,),
-              ListTile(title : Text('Note :',style: TextStyle(fontWeight: FontWeight.bold),), subtitle: Text('If you want to install apks on Xiaomi devices, you need to sign in Mi Account and turn on install via USB in developer options.And then when the pop up appear, click install for each apk.',style: TextStyle(fontWeight: FontWeight.w700),),)
+              ListTile(title : Text('Note :',style: TextStyle(fontWeight: FontWeight.bold),), subtitle: Text('If you want to install apks on Xiaomi devices, you need to sign in Mi Account and turn on install via USB in developer options.And then when the pop up appear, click install for each apk.',style: TextStyle(fontWeight: FontWeight.w700,color: Color.fromARGB(255, 255, 255, 255)),),)
             ],
           ),
         ),

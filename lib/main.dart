@@ -31,9 +31,7 @@ class _MyAppState extends State<MyApp> {
       
       debugShowCheckedModeBanner: false,
       title: 'Flutter Desktop App',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
+      theme: ThemeData.dark(),
       
       home: Scaffold(
         body: _body,
